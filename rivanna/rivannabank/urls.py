@@ -8,5 +8,6 @@ urlpatterns=[
     path("SendMoney",views.sendMoney,name="sendMoney"),
     path("Transaction-History",views.transactionHistory,name="transactionHistory"),
     path("Check-Balance",views.checkBalance,name="checkBalance"),
+    path("Deposit",views.deposit,name="deposit"),
 
 ]

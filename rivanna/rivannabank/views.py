@@ -15,3 +15,5 @@ def transactionHistory(request):
     return render(request,"transactionHistory.html")
 def checkBalance(request):
     return render(request,"checkBalance.html")
+def deposit(request):
+    return render(request,"deposit.html")
