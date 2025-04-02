@@ -263,6 +263,16 @@ display: flex;
 justify-content: center;
 gap: 20px;
 }
+.password-group{
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+.password-group button{
+    background-color: #ffffff;
+    border: 1px solid #679979;
+    border-radius: 50%;
+}
 /*----------------- LOGIN ------------------- */
 .login-account{
     padding-top: 20px;
