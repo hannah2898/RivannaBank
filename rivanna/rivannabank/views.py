@@ -5,7 +5,9 @@ from django.utils import timezone
 from django.db import connection
 
 import hashlib
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
+from datetime import datetime
+
 # Create your views here.
 def home(request):
     return render(request,"home.html")
@@ -66,7 +68,42 @@ def createAccount(request):
 
 
 def login(request):
-    return render(request,"login.html")
+    if request.method == 'POST':
+        username = request.POST['username'].strip()
+        password = request.POST['password'].strip()
+
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT id, password_hash 
+                FROM rivannabank_login 
+                WHERE username = %s
+            """, [username])
+
+            row = cursor.fetchone()
+
+            if row is None:
+                messages.error(request, "Username not found.")
+                return redirect('/Login')
+
+            user_id, stored_password_hash = row
+
+            if check_password(password, stored_password_hash):
+                cursor.execute("""
+                    UPDATE rivannabank_login 
+                    SET last_login = %s 
+                    WHERE id = %s
+                """, [datetime.now(), user_id])
+
+                request.session['user_id'] = user_id
+                messages.success(request, "Login successful.")
+                return redirect('/')
+            else:
+                messages.error(request, "Incorrect password.")
+                return redirect('/Login')
+
+    return render(request, 'login.html')
+ 
+
 def sendMoney(request):
     return render(request,"sendMoney.html")
 def transactionHistory(request):

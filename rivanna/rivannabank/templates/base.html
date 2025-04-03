@@ -48,5 +48,13 @@
         </ul>
         <p>&copy; 2025 Rivanna Bank. All rights reserved.</p>
     </footer>
+    
+    {% if messages %}
+        {% for message in messages %}
+        <script>
+                alert("{{ message|escapejs }}");   
+        </script>
+        {% endfor %}
+    {% endif %}
 </body>
 </html></footer></div>

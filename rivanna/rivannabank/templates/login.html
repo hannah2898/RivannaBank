@@ -5,9 +5,8 @@
         <p>Login</p>
     </div>
     <div class="form-block">
-        
-        <form method="post" action="/login-account/">
-          
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
             <div class="sub-heading">
                 Please enter your username and password.
             <div class="line"></div>
@@ -15,12 +14,13 @@
                 <div class="form-group">
                     <input type="text" id="username" name="username" placeholder="Username" required>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="password" name="password" placeholder="Password" required>
+                <div class="form-group password-group">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <button  type="button" onclick="togglePassword('password', this)">👁️</button>
                 </div>
             </div>
             <div class="form-buttons">
-                <button class="btn submit" type="back">Back</button>
+                <a href="\" class="btn submit">Back</a>
                 <button class="btn submit" type="submit">Submit</button>
             </div>
         </form>

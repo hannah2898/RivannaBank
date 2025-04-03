@@ -1,13 +1,5 @@
 {%extends "base.html"%}{% block title%} Create an Account{% endblock%}
 {% block content%}
-{% if messages %}
-    {% for message in messages %}
-    <script>
-            alert("{{ message|escapejs }}");   
-    </script>
-    {% endfor %}
-{% endif %}
-
 <div class="body-container">
     <div class="heading">
         <p>Create an Account</p>
@@ -72,23 +64,12 @@
                 </div>                
             </div>
             <div class="form-buttons">
-                <button class="btn submit" type="back">Back</button>
+                <a href="\" class="btn submit">Back</a>
                 <button class="btn submit" type="submit">Submit</button>
             </div>
         </form>
     </div>
 </div>
-<script>
-    function togglePassword(fieldId, button) {
-        const field = document.getElementById(fieldId);
-        if (field.type === "password") {
-            field.type = "text";
-            button.textContent = "🙈"; // hide icon
-        } else {
-            field.type = "password";
-            button.textContent = "👁️"; // show icon
-        }
-    }
-    </script>
+
     
 {% endblock %}
