@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} Login Required {% endblock %}
+
+{% block content %}
+<div class="message-container">
+
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <p class="message">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-buttons">
+        <a href="/" class="btn signup">Go to home</a>
+        <a href="/Login" class="btn signup">Login</a>
+    </div>
+    
+</div>
+{% endblock %}

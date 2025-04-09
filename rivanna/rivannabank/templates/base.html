@@ -35,6 +35,7 @@
             <a href="/Check-Balance" class="btn btn-primary">Check Balance</a>
             <a href="/Deposit" class="btn btn-primary">Deposit Money</a>
             <a href="/Transaction-History" class="btn btn-primary">View Transactions</a>
+            <a href="/logout" class="btn btn-primary">Logout</a>
         </div>
         <div class="menu-btn"></div>
     </div>
@@ -49,12 +50,6 @@
         <p>&copy; 2025 Rivanna Bank. All rights reserved.</p>
     </footer>
     
-    {% if messages %}
-        {% for message in messages %}
-        <script>
-                alert("{{ message|escapejs }}");   
-        </script>
-        {% endfor %}
-    {% endif %}
+   
 </body>
 </html></footer></div>

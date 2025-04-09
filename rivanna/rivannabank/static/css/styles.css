@@ -34,6 +34,7 @@ body::after {
 }
 .btn{
     padding: 10px 20px;
+    font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
@@ -80,7 +81,7 @@ body::after {
 .form-group {
     width: 100%;
 }
-.form-group input{
+.form-group input,select{
     width: 100%;
     padding: 8px 8px;
     border: 1px solid #23645C;
@@ -239,7 +240,6 @@ main{
 }
 .signup{
     background-color: #CE9BAA;
-    font-size: 12px;
     
 }
 /*----------------- CREATE ACCOUNT ------------------- */
@@ -262,6 +262,7 @@ main{
 display: flex;
 justify-content: center;
 gap: 20px;
+
 }
 .password-group{
     display: flex;
@@ -285,9 +286,13 @@ gap: 20px;
     justify-self: center;
     gap: 20px
 }
-.login-account input{
+.login-account input, select{
     width:500px;
     height: 30px;
+}
+select{
+    width: 515px;
+    height: 40px;
 }
 /*----------------- SEND MONEY ------------------- */
 .send-money{
@@ -308,6 +313,26 @@ gap: 20px;
 .response{
     display: none;
 }
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .amount{
+    font-size: 50px;
+    font-weight: 700;
+    color: #679979;
+    text-align: center;
+    margin-top: 20px;
+  }
 /*----------------- TRANSACTION HISTORY ------------------- */
 .transaction-container{
     display: flex;
@@ -345,6 +370,19 @@ gap: 20px;
     padding: 5px;
     text-align: left;
     border: 1px solid #679979;
+}
+/*----------------- MESSAGE ------------------- */
+.message-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 80px;
+    align-items: center;
+}
+.message{
+    font-size: 50px;
+    font-weight: 700;
+    color: #ffffff;
 }
 /*----------------- FOOTER ------------------- */
 footer{
