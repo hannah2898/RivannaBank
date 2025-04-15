@@ -103,6 +103,7 @@ def login(request):
                 messages.error(request, "Username not found.")
                 return render(request, 'message.html')
 
+
             user_id, stored_password_hash, customer_id = row
 
             if check_password(password, stored_password_hash):
@@ -190,9 +191,10 @@ def deposit(request):
 
                     cursor.execute("""
                         INSERT INTO rivannabank_transaction 
-                        (transaction_type, amount, date, status, account_id)
-                        VALUES (%s, %s, %s, %s, %s)
-                    """, ['Deposit', amount, timezone.now(), 'Completed', account_id])
+                        (transaction_type, amount, date, status, account_id, balance_after_transaction)
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                    """, ['Deposit', amount, timezone.now(), 'Completed', account_id, new_balance])
+
 
             messages.success(request, f"Deposit of ₹{amount} to your {account_type} account successful!")
             return render(request, 'message.html')
