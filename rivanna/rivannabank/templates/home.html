@@ -5,11 +5,20 @@
         <img src="/static/images/3DMobile.png" alt="#D mobile image" class="home-image">
     </div>
     <div class="home-content">
+        {% if logged_in and username %}
+            <div class="greeting">
+                <h2 class="user">Hi {{ username }} 👋</h2>
+            </div>
+        {% endif %}
         <div class="home-header">
             <p>Smart and Simple Online Banking</p>
         </div>
         <p class="sub-content">All in one banking for everyone</p>
-        <a href="/Login" class="btn signup">Log in</a>
+        {% if logged_in %}
+            <a href="/Transaction-History" class="btn signup">View Your Recent History</a>
+        {% else %}
+            <a href="/Login" class="btn signup">Log in</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

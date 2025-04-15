@@ -211,6 +211,10 @@ main{
     height: 80vh;
 }
 /*----------------- HOME ------------------- */
+.user{
+    font-size: 40px;
+    margin: 0px;
+}
 .home-container{
     display: flex;
     justify-content: center;
@@ -243,6 +247,12 @@ main{
     
 }
 /*----------------- CREATE ACCOUNT ------------------- */
+.error-text {
+    color: #d9534f;
+    font-size: 0.85em;
+    margin-top: 4px;
+    display: block;
+}
 .line{
     margin-top: 20px;
     margin-bottom: 20px;

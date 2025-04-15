@@ -1,5 +1,5 @@
 from django.db import models, transaction   
-
+from decimal import Decimal
 # Create your models here.
 #Customer model represents a bank customer
 class Customer(models.Model):
@@ -35,6 +35,7 @@ class Transaction(models.Model):
     TRANSACTION_TYPES = (
         ('Deposit', 'Deposit'),
         ('Withdrawal', 'Withdrawal'),
+        ('E-Transfer', 'E-Transfer'), 
     )
     
     transaction_type = models.CharField(max_length=50, choices=TRANSACTION_TYPES)  # Transaction type
@@ -42,6 +43,7 @@ class Transaction(models.Model):
     date = models.DateTimeField(auto_now_add=True)  # Auto timestamp when created
     status = models.CharField(max_length=50, default='Initiated')  # Transaction status
     account = models.ForeignKey('Account', on_delete=models.CASCADE)  # Links to an account
+    balance_after_transaction = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)  # 👈 NEW
 
     def __str__(self):
         return f"{self.transaction_type} - {self.amount} - {self.status}"
@@ -55,11 +57,11 @@ class Transaction(models.Model):
                 if self.account.balance >= self.amount:
                     self.account.balance -= self.amount
                 else:
-                    raise ValueError("Insufficient balance for withdrawal")
+                    raise ValueError("Insufficient balance for sending money")
 
             # Save the updated account balance
             self.account.save()
-
+            self.balance_after_transaction = self.account.balance
             # Save the transaction itself
             super(Transaction, self).save(*args, **kwargs)
 
@@ -78,19 +80,32 @@ class FundTransfer(models.Model):
     def save(self, *args, **kwargs):
         # Use atomic transaction to ensure transfer is handled safely
         with transaction.atomic():
-            if self.sender_account.balance >= self.amount:
-                # Decrease sender balance
-                self.sender_account.balance -= self.amount
-                self.sender_account.save()
+            if not isinstance(self.amount, Decimal):
+                self.amount = Decimal(str(self.amount))
 
-                # Increase receiver balance
-                self.receiver_account.balance += self.amount
-                self.receiver_account.save()
+        if self.sender_account.balance >= self.amount:
+            self.sender_account.balance -= self.amount
+            self.receiver_account.balance += self.amount
 
-                # Mark transfer as completed
-                self.status = 'Completed'
+            Transaction.objects.create(
+                transaction_type='E-Transfer',
+                amount=-self.amount,
+                account=self.sender_account,
+                status='Completed',
+                balance_after_transaction=self.sender_account.balance
+            )
+            Transaction.objects.create(
+                transaction_type='E-Transfer',
+                amount=self.amount,
+                account=self.receiver_account,
+                status='Completed',
+                balance_after_transaction=self.receiver_account.balance
+            )
 
-                # Save the transfer record
-                super(FundTransfer, self).save(*args, **kwargs)
-            else:
-                raise ValueError("Insufficient balance for fund transfer")
+            self.sender_account.save()
+            self.receiver_account.save()
+
+            self.status = 'Completed'
+            super(FundTransfer, self).save(*args, **kwargs)
+        else:
+            raise ValueError("Insufficient balance for fund transfer")

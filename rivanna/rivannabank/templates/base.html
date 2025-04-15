@@ -35,7 +35,11 @@
             <a href="/Check-Balance" class="btn btn-primary">Check Balance</a>
             <a href="/Deposit" class="btn btn-primary">Deposit Money</a>
             <a href="/Transaction-History" class="btn btn-primary">View Transactions</a>
-            <a href="/logout" class="btn btn-primary">Logout</a>
+            {% if request.session.customer_id %}
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/Login">Login</a>
+    {% endif %}
         </div>
         <div class="menu-btn"></div>
     </div>

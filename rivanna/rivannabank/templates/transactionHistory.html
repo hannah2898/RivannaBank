@@ -20,102 +20,30 @@
                 </tr>
             </thead>
             <tbody>
+                {% for tx in transactions %}
                 <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
+                    <td>{{ tx.date|date:"Y-m-d H:i" }}</td>
+                    <td>{{ tx.transaction_type }}</td>
+                    <td>
+                        {% if tx.amount|floatformat:2|slice:":1" == "-" %}
+                        <span class="text-danger">${{ tx.amount|floatformat:2 }}</span>
+                        {% else %}
+                            <span class="text-success">+${{ tx.amount|floatformat:2 }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ tx.status }}</td>
+                    <td>${{ tx.balance_after_transaction|floatformat:2 }}</td>
                 </tr>
+                {% empty %}
                 <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
+                    <td colspan="5">No transactions found.</td>
                 </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-10-01</td>
-                    <td>Deposit</td>
-                    <td>$500.00</td>
-                    <td>Completed</td>
-                    <td>$1500.00</td>
-                </tr>
-                <tr>
-                    <td>2023-09-28</td>
-                    <td>Withdrawal</td>
-                    <td>$200.00</td>
-                    <td>Completed</td>
-                    <td>$1000.00</td>
-                </tr>
-                <tr>
-                    <td>2023-09-25</td>
-                    <td>Transfer</td>
-                    <td>$300.00</td>
-                    <td>Pending</td>
-                    <td>$1300.00</td>
-                </tr>
-                <tr>
-                    <td>2023-09-20</td>
-                    <td>Deposit</td>
-                    <td>$400.00</td>
-                    <td>Completed</td>
-                    <td>$1600.00</td>
-                </tr>
-                <tr>
-                    <td>2023-09-15</td>
-                    <td>Withdrawal</td>
-                    <td>$100.00</td>
-                    <td>Completed</td>
-                    <td>$1200.00</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="form-buttons">
-        <button class="btn submit" type="back">Back</button>
+        <a href="/" class="btn signup">Go to home</a>
     </div>
     </div>  
 </div>

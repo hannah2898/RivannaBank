@@ -1,12 +1,5 @@
 {%extends "base.html"%}{% block title%} Create an Account{% endblock%}
 {% block content%}
-{% if messages %}
-{% for message in messages %}
-<script>
-        alert("{{ message|escapejs }}");   
-</script>
-{% endfor %}
-{% endif %}
 <div class="body-container">
     <div class="heading">
         <p>Create an Account</p>
@@ -20,34 +13,37 @@
             {% csrf_token %}
             <div class="row">
                 <div class="form-group">
-                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" required>
+                    <input type="text" id="fullname" name="fullname" placeholder="Full Name" required value="{{ form_data.fullname }}">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <input type="text" id="phone" name="phone" placeholder="Phone number" required>
+                    <input type="text" id="phone" name="phone" placeholder="Phone number" required value="{{ form_data.phone }}">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="email" name="email" placeholder="Email ID" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
-                    <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="address2" name="address2" placeholder="Address Line 2" required>
+                    <input type="text" id="email" name="email" placeholder="Email ID" required value="{{ form_data.email }}">
+                    {% if errors.email %}
+                        <small class="error-text">{{ errors.email }}</small>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <input type="text" id="city" name="city" placeholder="City" required>
+                    <input type="text" id="streetAddress" name="streetAddress" placeholder="Street Address" required value="{{ form_data.streetAddress }}">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="province" name="province" placeholder="Province" required>
+                    <input type="text" id="address2" name="address2" placeholder="Address Line 2" required value="{{ form_data.address2 }}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <input type="text" id="city" name="city" placeholder="City" required value="{{ form_data.city }}">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="zipcode" name="zipcode" placeholder="Zipcode" required>
+                    <input type="text" id="province" name="province" placeholder="Province" required value="{{ form_data.province }}">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="zipcode" name="zipcode" placeholder="Zipcode" required value="{{ form_data.zipcode }}">
                 </div>
             </div>
             <div class="line"></div>
@@ -57,7 +53,10 @@
             <div class="line"></div>
             <div class="row">
                 <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <input type="text" id="username" name="username" placeholder="Username" required value="{{ form_data.username }}">
+                    {% if errors.username %}
+                        <small class="error-text">{{ errors.username }}</small>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="form-group password-group">
@@ -67,6 +66,9 @@
                     <div class="form-group password-group">
                         <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
                         <button type="button" onclick="togglePassword('confirm_password', this)">👁️</button>
+                        {% if errors.confirm_password %}
+                            <small class="error-text">{{ errors.confirm_password }}</small>
+                        {% endif %}
                     </div>
                 </div>                
             </div>
