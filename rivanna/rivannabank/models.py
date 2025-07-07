@@ -1,4 +1,4 @@
-from django.db import models, transaction   
+from django.db import models,    
 from decimal import Decimal
 # Create your models here.
 #Customer model represents a bank customer
